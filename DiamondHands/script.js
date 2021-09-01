@@ -10,7 +10,7 @@ let elemTotalScore = null;
 let currentSection = null;
 let otherSection = null;
 
-const diceSource = ['res/dice1.png', 'res/dice2.png', 'res/dice3.png', 'res/dice4.png', 'res/dice5.png', 'res/dice6.png'];
+const diceSource = ['./res/dice1.png', './res/dice2.png', './res/dice3.png', './res/dice4.png', './res/dice5.png', './res/dice6.png'];
 
 //dice image element
 const elemDice = document.querySelector('.dice');
@@ -66,6 +66,8 @@ btnRollDice.addEventListener('click', function () {
     const diceRoll = Math.floor(Math.random() * 6) + 1;
 
     elemDice.src = diceSource[diceRoll - 1];
+
+    console.log(elemDice.src);
 
     elemDice.classList.remove('hidden');
 
