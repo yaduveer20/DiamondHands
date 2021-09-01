@@ -10,7 +10,7 @@ let elemTotalScore = null;
 let currentSection = null;
 let otherSection = null;
 
-const diceSource = ['dice1.png','dice2.png','dice3.png','dice4.png','dice5.png','dice6.png'];
+const diceSource = ['res/dice1.png', 'res/dice2.png', 'res/dice3.png', 'res/dice4.png', 'res/dice5.png', 'res/dice6.png'];
 
 //dice image element
 const elemDice = document.querySelector('.dice');
@@ -34,44 +34,44 @@ const secPlayer2 = document.querySelector('.player-2');
 
 
 //update or reset current score element
-function updateResetCurrentScore(elemCurrentScore){
+function updateResetCurrentScore(elemCurrentScore) {
     elemCurrentScore.textContent = currentScore;
 }
 
 //get current score element
-function getCurrentScoreElement(){
+function getCurrentScoreElement() {
     return toggle ? elemCurrentScorePlayer1 : elemCurrentScorePlayer2;
 }
 
 //get total score element
-function getTotalScoreElement(){
+function getTotalScoreElement() {
     return toggle ? elemTotalScorePlayer1 : elemTotalScorePlayer2;
 }
 
 //toggle current active section
 
-function toggleActive(){
+function toggleActive() {
 
-    [currentSection,otherSection] = toggle ? [secPlayer1,secPlayer2] : [secPlayer2,secPlayer1];
+    [currentSection, otherSection] = toggle ? [secPlayer1, secPlayer2] : [secPlayer2, secPlayer1];
 
     currentSection.classList.remove('player-active');
     otherSection.classList.add('player-active');
-    
+
 }
 
 
 //roll dice button event click listener
-btnRollDice.addEventListener('click',function(){
+btnRollDice.addEventListener('click', function () {
     //generates random dice roll
-    const diceRoll = Math.floor(Math.random()*6)+1;
+    const diceRoll = Math.floor(Math.random() * 6) + 1;
 
-    elemDice.src = diceSource[diceRoll-1];
+    elemDice.src = diceSource[diceRoll - 1];
 
     elemDice.classList.remove('hidden');
 
     elemCurrentScore = getCurrentScoreElement();
 
-    if(diceRoll === 1){
+    if (diceRoll === 1) {
         currentScore = 0;
 
         toggleActive();
@@ -82,7 +82,7 @@ btnRollDice.addEventListener('click',function(){
         elemDice.classList.add('hidden');
 
     }
-    else{
+    else {
         currentScore += diceRoll;
         updateResetCurrentScore(elemCurrentScore);
     }
@@ -90,37 +90,37 @@ btnRollDice.addEventListener('click',function(){
 
 
 //hodl button event click listener
-btnHodl.addEventListener('click',function(){
-   elemCurrentScore = getCurrentScoreElement();
-   elemTotalScore = getTotalScoreElement();
+btnHodl.addEventListener('click', function () {
+    elemCurrentScore = getCurrentScoreElement();
+    elemTotalScore = getTotalScoreElement();
 
-   elemTotalScore.textContent = (toggle ? totalScorePlayer1 : totalScorePlayer2) + currentScore;
+    elemTotalScore.textContent = (toggle ? totalScorePlayer1 : totalScorePlayer2) + currentScore;
 
-   if(Number(elemTotalScore.textContent) >= 100){
-       if(!otherSection) otherSection = secPlayer1;
-       otherSection.classList.add('player-winner');
-   }
-   else{
-    //update player total score
-    if(toggle) totalScorePlayer1 += currentScore;
-    else totalScorePlayer2 += currentScore;
+    if (Number(elemTotalScore.textContent) >= 100) {
+        if (!otherSection) otherSection = secPlayer1;
+        otherSection.classList.add('player-winner');
+    }
+    else {
+        //update player total score
+        if (toggle) totalScorePlayer1 += currentScore;
+        else totalScorePlayer2 += currentScore;
 
-    toggleActive();
+        toggleActive();
 
-    toggle = !toggle;
-    currentScore = 0;
+        toggle = !toggle;
+        currentScore = 0;
 
-    updateResetCurrentScore(elemCurrentScore);
-    elemDice.classList.add('hidden');
-   }
+        updateResetCurrentScore(elemCurrentScore);
+        elemDice.classList.add('hidden');
+    }
 
 });
 
 //new game button event click listener
-btnNewGame.addEventListener('click',function(){
+btnNewGame.addEventListener('click', function () {
     elemCurrentScore = getCurrentScoreElement();
     elemTotalScore = getTotalScoreElement();
-    
+
     currentScore = 0;
     updateResetCurrentScore(elemCurrentScore);
     totalScorePlayer1 = totalScorePlayer2 = 0;
@@ -132,8 +132,8 @@ btnNewGame.addEventListener('click',function(){
 
     secPlayer1.classList.add('player-active');
     secPlayer2.classList.remove('player-active');
-    
+
     elemDice.classList.add('hidden');
 
-    if(otherSection) otherSection.classList.remove('player-winner');
+    if (otherSection) otherSection.classList.remove('player-winner');
 });
